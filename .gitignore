@@ -2,3 +2,4 @@ node_modules
 dist
 secure_info
 .env
+temp
