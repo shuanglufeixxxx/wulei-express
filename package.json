@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon --exec 'ts-node' ./app.ts",
     "debug": "export DEBUG=wulei* DEBUG_COLORS=0 DEBUG_HIDE_DATE=1 && npm start",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
