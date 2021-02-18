@@ -1,23 +1,22 @@
-import { apiPrefix, apiv1 } from "./init-router";
-import { sequelize } from "../sequelize-init";
+import { apiv1 } from "./init-routes";
+import { featured_picture } from "../../models/featured_picture";
+import { authenticate } from "./account";
 
-const prefix = apiPrefix + '/featuredPicture';
+const prefix = '/featuredPicture';
 
-apiv1.get(prefix, (req, res, next) => {
-    sequelize
-        .query(
-            `select id from picture where id in (select picture_id from featured_picture where place = :place)`,
-            {
-                replacements: {
-                    place: req.params.place
-                },
-                fieldMap: {
-                    id: 'id'
-                }
-            }
-        )
+apiv1.get(prefix, authenticate.optional, (req, res, next) => {
+    featured_picture
+        .findAll({
+            where: {
+                place: req.query.place
+            },
+            attributes: [['picture_id', 'id']]
+        })
         .then(ids => {
             res.json(ids)
         })
         .catch(next)
 })
+
+const run = () => {}
+export default run

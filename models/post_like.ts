@@ -51,6 +51,15 @@ export class post_like extends Model<post_likeAttributes, post_likeCreationAttri
           { name: "id" },
         ]
       },
+      {
+        name: "account_id",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "account_id" },
+          { name: "post_id" },
+        ]
+      },
     ]
   });
   return post_like;
