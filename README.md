@@ -8,5 +8,5 @@ $ npx sequelize-auto -o "./models" -d wulei -h localhost -u mysql_username -p 33
 $ npm install jsonwebtoken dotenv\
 $ npm install @types/jsonwebtoken @types/dotenv --save-dev\
 $ node\
-\> require('crypto').randomBytes(64).toString('hex')
+\> require('crypto').randomBytes(64).toString('hex')\
 paste to .env like 'ACCESS_TOKEN_SECRET=...'
