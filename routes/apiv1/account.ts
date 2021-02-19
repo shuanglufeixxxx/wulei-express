@@ -98,6 +98,14 @@ apiv1.post(prefix + '/signUp', authenticate.optional, (req: any, res, next) => {
 });
 
 
+apiv1.get(prefix + '/retrieveAccountSignedIn', authenticate.optional, (req: any, res) => {
+    res.json(req.user && {
+        id: req.user.id,
+        username: req.user.username
+    });
+})
+
+
 apiv1.get(prefix + '/exist', authenticate.optional, (req, res, next) => {
     sequelize
         .query(

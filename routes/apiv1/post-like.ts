@@ -15,7 +15,7 @@ apiv1.post(prefix, authenticate.required, (req: any, res, next) => {
             account_id: req.user.id,
             create_date: new Date().toString()
         })
-        .then( _ => {
+        .then(_ => {
             res.send();
         })
         .catch(next);
