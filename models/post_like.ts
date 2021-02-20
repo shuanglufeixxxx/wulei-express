@@ -52,12 +52,12 @@ export class post_like extends Model<post_likeAttributes, post_likeCreationAttri
         ]
       },
       {
-        name: "account_id",
+        name: "post_like_unique_post_id_account_id_ZN",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "account_id" },
           { name: "post_id" },
+          { name: "account_id" },
         ]
       },
     ]

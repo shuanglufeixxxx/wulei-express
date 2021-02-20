@@ -1,10 +1,10 @@
 import { apiv1 } from "./init-routes";
 import { picture } from "../../models/picture";
-import { authenticate } from "./account";
+import { authHandler } from "./account";
 
 const prefix = "/image";
 
-apiv1.get(prefix + "/:id", authenticate.optional, (req, res, next) => {
+apiv1.get(prefix + "/:id", (req, res, next) => {
     picture
         .findByPk(req.params.id)
         .then((picture) => {

@@ -1,12 +1,12 @@
 import { apiv1 } from "./init-routes";
 import { post, post_like } from "../../models/init-models";
 import { sequelize } from "../sequelize-init";
-import { authenticate } from "./account";
+import { authHandler } from "./account";
 import { QueryTypes } from "sequelize";
 
 const prefix = "/postLike";
 
-apiv1.post(prefix, authenticate.required, (req: any, res, next) => {
+apiv1.post(prefix, authHandler, (req: any, res, next) => {
     if (req.body.postId == null) return res.sendStatus(202)
 
     post_like
@@ -21,7 +21,7 @@ apiv1.post(prefix, authenticate.required, (req: any, res, next) => {
         .catch(next);
 });
 
-apiv1.delete(prefix, authenticate.required, (req: any, res, next) => {
+apiv1.delete(prefix, authHandler, (req: any, res, next) => {
     if (req.body.postId == null) return res.sendStatus(202)
 
     post_like
@@ -37,7 +37,7 @@ apiv1.delete(prefix, authenticate.required, (req: any, res, next) => {
         .catch(next);
 });
 
-apiv1.get(prefix + '/exist', authenticate.required, (req: any, res, next) => {
+apiv1.get(prefix + '/exist', authHandler, (req: any, res, next) => {
     if (req.query.postId == null) return res.sendStatus(202)
 
     sequelize
@@ -65,7 +65,7 @@ apiv1.get(prefix + '/exist', authenticate.required, (req: any, res, next) => {
         .catch(next)
 })
 
-apiv1.get(prefix + "/count", authenticate.optional, (req, res, next) => {
+apiv1.get(prefix + "/count", (req, res, next) => {
     post_like
         .count({
             where: {
@@ -78,7 +78,7 @@ apiv1.get(prefix + "/count", authenticate.optional, (req, res, next) => {
         .catch(next);
 });
 
-apiv1.get(prefix + "/my", authenticate.required, (req: any, res, next) => {
+apiv1.get(prefix + "/my", authHandler, (req: any, res, next) => {
     sequelize
         .query(
             `select * from post where id in (select post_id from post_like where account_id = :accountId)`,

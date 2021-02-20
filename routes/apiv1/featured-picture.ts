@@ -1,10 +1,10 @@
 import { apiv1 } from "./init-routes";
 import { featured_picture } from "../../models/featured_picture";
-import { authenticate } from "./account";
+import { authHandler } from "./account";
 
 const prefix = '/featuredPicture';
 
-apiv1.get(prefix, authenticate.optional, (req, res, next) => {
+apiv1.get(prefix, (req, res, next) => {
     featured_picture
         .findAll({
             where: {

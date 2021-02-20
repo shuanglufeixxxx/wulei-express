@@ -1,10 +1,10 @@
 import { apiv1 } from "./init-routes";
 import { picture_item } from "../../models/picture_item";
-import { authenticate } from "./account";
+import { authHandler } from "./account";
 
 const prefix = '/picture';
 
-apiv1.get(prefix, authenticate.optional, (req, res, next) => {
+apiv1.get(prefix, (req, res, next) => {
     picture_item
         .findAll({
             where: {

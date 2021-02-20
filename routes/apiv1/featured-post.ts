@@ -1,11 +1,11 @@
 import { apiv1 } from "./init-routes";
 import { sequelize } from "../sequelize-init";
 import { post } from "../../models/post";
-import { authenticate } from "./account";
+import { authHandler } from "./account";
 
 const prefix = "/featuredPost";
 
-apiv1.get(prefix, authenticate.optional, (req, res, next) => {
+apiv1.get(prefix, (req, res, next) => {
     sequelize
         .query(
             "select * from post where id in (select post_id from featured_post where classify = :classify)",
