@@ -1,5 +1,5 @@
 node_modules
 dist
-secure_info
+src/secure_info
 .env
 temp
