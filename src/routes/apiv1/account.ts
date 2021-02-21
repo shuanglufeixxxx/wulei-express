@@ -5,6 +5,7 @@ import { apiPrefix, apiv1 } from "./init-routes";
 import { sequelize } from "../sequelize-init";
 import { QueryTypes } from 'sequelize';
 import { appName } from '../../app';
+import cors from 'cors'
 
 
 const debug = debugModule(appName + ':./routes/apiv1/account.ts');
@@ -68,20 +69,52 @@ apiv1.all(prefix + '/updateToken', (req: any, res) => {
             res.set(ACCESS_TOKEN_HEADER_NAME, accessToken)
 
             req.query.original_url ?
-            res.redirect(`${decodeURIComponent(req.query.original_url)}`) :
+            res.redirect(decodeURIComponent(req.query.original_url)) :
             res.sendStatus(200);
         })
     })
 })
 
-const REFRESH_TOKEN_DEFAULT_PROPERTIES = {
+const REFRESH_TOKEN_PRODUCTION_PROPERTIES = {
     maxAge: 1_800_000,
     httpOnly: true,
     secure: true,
     sameSite: 'strict' as 'strict'
 }
 
-apiv1.post(prefix + '/signIn', (req: any, res, next) => {
+const REFRESH_TOKEN_DEV_PROPERTIES = {
+    maxAge: 1_800_000,
+    httpOnly: false,
+    secure: false,
+    sameSite: 'none' as 'none'
+}
+
+const REFRESH_TOKEN_PROPERTIES = process.env.PRODUCTION! ? REFRESH_TOKEN_PRODUCTION_PROPERTIES : REFRESH_TOKEN_DEV_PROPERTIES
+
+console.log("refreshtokenp", REFRESH_TOKEN_PROPERTIES)
+
+
+const whitelist = /http:\/\/localhost/
+
+const corsOptionsDelegate = (req: any, callback: any) => {
+
+  if ( whitelist.test(req.header('Origin')) ) {
+      console.log("HHHHHHHHelllo")
+    callback(null, {
+        origin: true,
+        methods: ['GET','HEAD','POST'],
+        allowedHeaders: ['Content-Type', ACCESS_TOKEN_HEADER_NAME],
+        exposedHeaders: ['Content-Type', ACCESS_TOKEN_HEADER_NAME],
+        maxAge: 7200
+    })
+  } else {
+    callback(null, { origin: false })
+  }
+}
+
+
+apiv1.options(prefix + '/signIn', cors(corsOptionsDelegate), (req, res) => {res.json()})
+apiv1.post(prefix + '/signIn', cors(corsOptionsDelegate), (req: any, res, next) => {
 
     req.user = null;
 
@@ -95,20 +128,26 @@ apiv1.post(prefix + '/signIn', (req: any, res, next) => {
         .then(acc => {
             if (acc == null) return res.sendStatus(403);
             const accessToken = generateAccessToken(account2user(acc));
-            const rt = jwt.sign(account2user(acc), process.env.REFRESH_TOKEN_SECRET!, {expiresIn: REFRESH_TOKEN_DEFAULT_PROPERTIES.maxAge});
+            const rt = jwt.sign(account2user(acc), process.env.REFRESH_TOKEN_SECRET!, {expiresIn: REFRESH_TOKEN_PROPERTIES.maxAge});
             
             refreshToken.create({
                 refreshToken_value: rt
             })
                 .then()
 
+            debug('acc token %s', accessToken)
             res.cookie(
                 REFRESH_TOKEN_COOKIE_NAME,
                 rt,
-                REFRESH_TOKEN_DEFAULT_PROPERTIES
+                REFRESH_TOKEN_PROPERTIES
             )
-            .set(ACCESS_TOKEN_HEADER_NAME, accessToken)
-            .sendStatus(200)
+            .append(ACCESS_TOKEN_HEADER_NAME, accessToken)
+            .json({
+                id: acc.id,
+                username: acc.username,
+            })
+
+            debug(':127 res header token', res.get(ACCESS_TOKEN_HEADER_NAME))
         })
         .catch(next)
 })
@@ -135,7 +174,7 @@ apiv1.post(prefix + '/signUp', (req: any, res, next) => {
                 .then((acct) => {
                     if (acct == null) return res.sendStatus(500);
                     const accessToken = generateAccessToken(account2user(acct));
-                    const rt = jwt.sign(account2user(acct), process.env.REFRESH_TOKEN_SECRET!, {expiresIn: REFRESH_TOKEN_DEFAULT_PROPERTIES.maxAge});
+                    const rt = jwt.sign(account2user(acct), process.env.REFRESH_TOKEN_SECRET!, {expiresIn: REFRESH_TOKEN_PROPERTIES.maxAge});
                             
                     refreshToken.create({
                         refreshToken_value: rt
@@ -145,10 +184,13 @@ apiv1.post(prefix + '/signUp', (req: any, res, next) => {
                     res.cookie(
                         REFRESH_TOKEN_COOKIE_NAME,
                         rt,
-                        REFRESH_TOKEN_DEFAULT_PROPERTIES
+                        REFRESH_TOKEN_PROPERTIES
                     )
-                    .set(ACCESS_TOKEN_HEADER_NAME, accessToken)
-                    .sendStatus(200)
+                    .append(ACCESS_TOKEN_HEADER_NAME, accessToken)
+                    .json({
+                        id: acct.id,
+                        username: acct.username,
+                    })
                 })
                 .catch(next);
         })
@@ -170,7 +212,7 @@ apiv1.post(prefix + '/signOut', (req: any, res, next) => {
     res.cookie(
         REFRESH_TOKEN_COOKIE_NAME,
         rt,
-        Object.assign({}, REFRESH_TOKEN_DEFAULT_PROPERTIES, {maxAge: 0})
+        Object.assign({}, REFRESH_TOKEN_PROPERTIES, {maxAge: 0})
     )
     .sendStatus(200)
 })

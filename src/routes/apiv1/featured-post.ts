@@ -1,7 +1,6 @@
 import { apiv1 } from "./init-routes";
 import { sequelize } from "../sequelize-init";
 import { post } from "../../models/post";
-import { authHandler } from "./account";
 
 const prefix = "/featuredPost";
 

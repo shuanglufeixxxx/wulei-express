@@ -3,3 +3,4 @@ dist
 src/secure_info
 .env
 temp
+public

@@ -69,11 +69,13 @@ apiv1.get(prefix + "/count", (req, res, next) => {
     post_like
         .count({
             where: {
-                post_id: req.params.postId,
+                post_id: req.query.postId,
             },
         })
         .then((count) => {
-            res.send(count);
+            res.json({
+                count: count
+            });
         })
         .catch(next);
 });

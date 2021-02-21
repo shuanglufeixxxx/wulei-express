@@ -1,6 +1,5 @@
 import { apiv1 } from "./init-routes";
 import { featured_picture } from "../../models/featured_picture";
-import { authHandler } from "./account";
 
 const prefix = '/featuredPicture';
 
