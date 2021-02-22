@@ -1,6 +1,6 @@
 import { apiv1 } from "./init-routes";
 import { post, post_like } from "../../models/init-models";
-import { sequelize } from "../sequelize-init";
+import { sequelize } from "../../sequelize-init";
 import { authHandler } from "./account";
 import { QueryTypes } from "sequelize";
 

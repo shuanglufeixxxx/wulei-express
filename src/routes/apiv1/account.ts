@@ -2,13 +2,12 @@ import jwt from 'jsonwebtoken';
 import debugModule from 'debug';
 import { account, refreshToken } from '../../models/init-models'
 import { apiPrefix, apiv1 } from "./init-routes";
-import { sequelize } from "../sequelize-init";
+import { sequelize } from "../../sequelize-init";
 import { QueryTypes } from 'sequelize';
 import { appName } from '../../app';
-import cors from 'cors'
 
 
-const debug = debugModule(appName + ':./routes/apiv1/account.ts');
+const debug = debugModule(appName + ':/src/routes/apiv1/account.ts');
 
 const prefix = '/account';
 

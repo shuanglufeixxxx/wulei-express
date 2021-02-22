@@ -1,5 +1,5 @@
 import { apiv1 } from "./init-routes";
-import { sequelize } from "../sequelize-init";
+import { sequelize } from "../../sequelize-init";
 import { post } from "../../models/post";
 
 const prefix = "/featuredPost";
