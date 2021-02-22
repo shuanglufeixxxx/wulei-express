@@ -1,11 +1,13 @@
 FROM node:14
-ENV NODE_ENV=production
-WORKDIR /wulei-express
+WORKDIR /boriseng/wulei-express
 
 COPY ["package.json", "package-lock.json", "./"]
-RUN npm ci --production && npm run build
-COPY ..
+RUN npm ci --no-cache
+COPY ./ ./
+RUN npm run deploy
+
+ENV NODE_ENV=production
 
 EXPOSE 443
 
-CMD ["node", "app.js"]
+CMD ["npm", "start"]

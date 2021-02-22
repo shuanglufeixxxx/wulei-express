@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "export production=0 && nodemon --exec 'ts-node' ./src/app.ts --pretty",
-    "debug": "export DEBUG=winston*,wulei* DEBUG_COLORS=0 DEBUG_HIDE_DATE=1 && npm start",
-    "build": "export PRODUCTION=1 && tsc",
+    "start": "node ./dist/app.js",
+    "watch": "export production=0 && nodemon --exec 'ts-node' ./src/app.ts --pretty",
+    "debug": "export DEBUG=winston*,wulei* DEBUG_COLORS=0 DEBUG_HIDE_DATE=1 && npm run watch",
+    "build": "export PRODUCTION=1 && npx tsc",
+    "deploy": "npm run build && cp -r public ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

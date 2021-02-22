@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
-
+console.log("wulei-express: env: %o", process.env)
 
 export const appName = 'wulei';
 

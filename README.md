@@ -10,3 +10,7 @@ $ npm install @types/jsonwebtoken @types/dotenv --save-dev\
 $ node\
 \> require('crypto').randomBytes(64).toString('hex')\
 paste to .env like 'ACCESS_TOKEN_SECRET=...'
+
+## Docker deployment
+docker build --tag \<username\>/\<appname\>:\<tagname\> ./\
+docker run -p 443:443 -d \<username\>/\<appname\>:<tagname\>

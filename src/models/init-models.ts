@@ -1,4 +1,4 @@
-import type { Sequelize, Model } from "sequelize";
+import type { Sequelize } from "sequelize";
 import { account } from "./account";
 import type { accountAttributes, accountCreationAttributes } from "./account";
 import { featured_picture } from "./featured_picture";
