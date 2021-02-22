@@ -21,13 +21,13 @@ apiv1.post(prefix, authHandler, (req: any, res, next) => {
         .catch(next);
 });
 
-apiv1.delete(prefix, authHandler, (req: any, res, next) => {
-    if (req.body.postId == null) return res.sendStatus(202)
+apiv1.delete(prefix + '/:id', authHandler, (req: any, res, next) => {
+    if (req.params.id == null) return res.sendStatus(202)
 
     post_like
         .destroy({
             where: {
-                post_id: req.body.postId,
+                post_id: req.params.id,
                 account_id: req.user.id
             },
         })

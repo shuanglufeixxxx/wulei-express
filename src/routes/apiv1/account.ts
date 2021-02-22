@@ -23,7 +23,7 @@ export const authHandler = (req: any, res: any, next: any) => {
     }
 
     const token = req.headers[ACCESS_TOKEN_HEADER_NAME]
-    debug(":22 %j", req.headers)
+    debug(":22 authHandler req.headers=%j", req.headers)
     if (token == null) return redirect();
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!, (err: any, user: any) => {
@@ -50,7 +50,7 @@ const account2user = (acc: account) => {
 apiv1.all(prefix + '/updateToken', (req: any, res) => {
 
     const rt = req.cookies[REFRESH_TOKEN_COOKIE_NAME]
-    debug(':51 %j', rt)
+    debug(':51 /updateToken rt=%s', rt)
     if ( rt == null ) return res.sendStatus(401);
 
     refreshToken.findOne({
@@ -84,37 +84,14 @@ const REFRESH_TOKEN_PRODUCTION_PROPERTIES = {
 
 const REFRESH_TOKEN_DEV_PROPERTIES = {
     maxAge: 1_800_000,
-    httpOnly: false,
+    httpOnly: true,
     secure: false,
-    sameSite: 'none' as 'none'
+    sameSite: 'strict' as 'strict'
 }
 
-const REFRESH_TOKEN_PROPERTIES = process.env.PRODUCTION! ? REFRESH_TOKEN_PRODUCTION_PROPERTIES : REFRESH_TOKEN_DEV_PROPERTIES
+const REFRESH_TOKEN_PROPERTIES = process.env.PRODUCTION ? REFRESH_TOKEN_PRODUCTION_PROPERTIES : REFRESH_TOKEN_DEV_PROPERTIES
 
-console.log("refreshtokenp", REFRESH_TOKEN_PROPERTIES)
-
-
-const whitelist = /http:\/\/localhost/
-
-const corsOptionsDelegate = (req: any, callback: any) => {
-
-  if ( whitelist.test(req.header('Origin')) ) {
-      console.log("HHHHHHHHelllo")
-    callback(null, {
-        origin: true,
-        methods: ['GET','HEAD','POST'],
-        allowedHeaders: ['Content-Type', ACCESS_TOKEN_HEADER_NAME],
-        exposedHeaders: ['Content-Type', ACCESS_TOKEN_HEADER_NAME],
-        maxAge: 7200
-    })
-  } else {
-    callback(null, { origin: false })
-  }
-}
-
-
-apiv1.options(prefix + '/signIn', cors(corsOptionsDelegate), (req, res) => {res.json()})
-apiv1.post(prefix + '/signIn', cors(corsOptionsDelegate), (req: any, res, next) => {
+apiv1.post(prefix + '/signIn', (req: any, res, next) => {
 
     req.user = null;
 
@@ -135,7 +112,7 @@ apiv1.post(prefix + '/signIn', cors(corsOptionsDelegate), (req: any, res, next) 
             })
                 .then()
 
-            debug('acc token %s', accessToken)
+            debug(':115 /signIn accessToken=%s', accessToken)
             res.cookie(
                 REFRESH_TOKEN_COOKIE_NAME,
                 rt,
@@ -147,7 +124,7 @@ apiv1.post(prefix + '/signIn', cors(corsOptionsDelegate), (req: any, res, next) 
                 username: acc.username,
             })
 
-            debug(':127 res header token', res.get(ACCESS_TOKEN_HEADER_NAME))
+            debug(':127 res.get(ACCESS_TOKEN_HEADER_NAME)=%s', res.get(ACCESS_TOKEN_HEADER_NAME))
         })
         .catch(next)
 })
@@ -165,7 +142,7 @@ apiv1.post(prefix + '/signUp', (req: any, res, next) => {
         })
         .then((acc) => {
             if (acc) return res.sendStatus(409);
-            debug("L118 %s", req.body.username);
+            debug(":118 /signUp req.body.username=%s", req.body.username);
             account
                 .create({
                     username: req.body.username,
@@ -200,7 +177,7 @@ apiv1.post(prefix + '/signUp', (req: any, res, next) => {
 
 apiv1.post(prefix + '/signOut', (req: any, res, next) => {
     const rt = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
-    debug(":145 cookies %o", req.cookies);
+    debug(":145 signOut req.cookies=%o", req.cookies);
     refreshToken
         .destroy({
             where: {
@@ -214,7 +191,7 @@ apiv1.post(prefix + '/signOut', (req: any, res, next) => {
         rt,
         Object.assign({}, REFRESH_TOKEN_PROPERTIES, {maxAge: 0})
     )
-    .sendStatus(200)
+    .json()
 })
 
 

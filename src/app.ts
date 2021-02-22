@@ -11,7 +11,7 @@ import winston from 'winston';
 import expressWinston from 'express-winston';
 import cors from 'cors'
 import setUpApiv1 from './routes/apiv1/setUpApiv1';
-import { apiPrefix, apiv1 } from './routes/apiv1/init-routes';
+import { apiv1 } from './routes/apiv1/init-routes';
 import cookieParser from 'cookie-parser';
 // import helmet from 'helmet';
 
@@ -48,6 +48,7 @@ app.use(expressWinston.errorLogger({
     )
 }));
 
+// path example '/p/21(action:sign-in)'
 
 const rawRegexStr = String.raw`^
     (
@@ -59,8 +60,13 @@ const rawRegexStr = String.raw`^
             )
             [\w-]+
         )
-    )
-    *
+    )*
+    (
+        \(
+        .*
+        \)
+    )?
+    \/?
 $`
 
 const regex = new RegExp(rawRegexStr.replace(/\s+/g, ''))
