@@ -1,12 +1,10 @@
 FROM node:14
-WORKDIR /boriseng/wulei-express
+WORKDIR /wulei-express
 
 COPY ["package.json", "package-lock.json", "./"]
-RUN npm ci --no-cache
+RUN npm ci --production=false
 COPY ./ ./
 RUN npm run deploy
-
-ENV NODE_ENV=production
 
 EXPOSE 443
 

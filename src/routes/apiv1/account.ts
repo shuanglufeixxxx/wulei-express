@@ -88,7 +88,7 @@ const REFRESH_TOKEN_DEV_PROPERTIES = {
     sameSite: 'strict' as 'strict'
 }
 
-const REFRESH_TOKEN_PROPERTIES = process.env.PRODUCTION ? REFRESH_TOKEN_PRODUCTION_PROPERTIES : REFRESH_TOKEN_DEV_PROPERTIES
+const REFRESH_TOKEN_PROPERTIES = process.env.NODE_ENV?.startsWith('prod') ? REFRESH_TOKEN_PRODUCTION_PROPERTIES : REFRESH_TOKEN_DEV_PROPERTIES
 
 apiv1.post(prefix + '/signIn', (req: any, res, next) => {
 

@@ -1,4 +1,4 @@
-## Develop notes
+# Develop notes
 $ git init\
 $ npm init\
 $ npm install express\

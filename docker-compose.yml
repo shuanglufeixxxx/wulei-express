@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  wulei-express:
+    image: 'wulei-express:v1.0.3-alpha'
+    command: sh -c "npm start"
+    ports:
+      - 1443:443
+    working_dir: /wulei-express
+  mysql:
+    env_file:
+      - .mysql_env
+    image: mysql:5.7
+    volumes:
+      - wulei-express-data:/var/lib/mysql
+volumes:
+  wulei-express-data:

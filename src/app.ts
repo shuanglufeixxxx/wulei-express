@@ -77,7 +77,7 @@ app.use(staticHandler)
 // handle SPA routing
 app.use(regex, staticHandler)
 
-const port = 443;
+const port = process.env.WE_PORT;
 
 app.listen(port, () => {
     console.log('app listen on port 3000')

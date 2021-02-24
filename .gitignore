@@ -4,3 +4,6 @@ src/secure_info
 .env
 temp
 public
+dockernotes.md
+.node_package_env
+.mysql_env

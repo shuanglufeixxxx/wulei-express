@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node ./dist/app.js",
-    "watch": "export production=0 && nodemon --exec 'ts-node' ./src/app.ts --pretty",
+    "start": "export NODE_ENV=production && export $(cat .node_package_env | xargs) && node ./dist/app.js",
+    "watch": "export NODE_ENV=development && nodemon --exec 'ts-node' ./src/app.ts --pretty",
     "debug": "export DEBUG=winston*,wulei* DEBUG_COLORS=0 DEBUG_HIDE_DATE=1 && npm run watch",
-    "build": "export PRODUCTION=1 && npx tsc",
+    "build": "npx tsc",
     "deploy": "npm run build && cp -r public ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
