@@ -6,3 +6,4 @@ public
 dockernotes.md
 .node_package_env
 .mysql_env
+.DS_Store
