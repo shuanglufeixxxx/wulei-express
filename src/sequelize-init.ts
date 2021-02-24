@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { mysqlAttribute } from './secure_info/mysql-attribute';
+import { mysqlAttribute } from './mysql/mysql-attribute';
 import { initModels } from './models/init-models'
 
 console.log('wulei-express: mysql url: %s', mysqlAttribute.url)
