@@ -1,4 +1,15 @@
-import { mysqlAttributeDev } from './mysql-attribute-dev'
-import { mysqlAttributeProd } from './mysql-attribute-prod'
+export const mysqlAccount = {
+    username: process.env.WE_MYSQL_USERNAME,
+    password: process.env.WE_MYSQL_PASSWORD
+}
 
-export const mysqlAttribute = process.env.NODE_ENV?.startsWith('prod') ? mysqlAttributeProd : mysqlAttributeDev
+const mysqlAttribute = {
+    host: process.env.WE_MYSQL_HOST,
+    port: process.env.WE_MYSQL_PORT,
+    database: process.env.WE_MYSQL_DATABASE,
+    url: '',
+}
+
+mysqlAttribute.url = `mysql://${mysqlAccount.username}:${mysqlAccount.password}@${mysqlAttribute.host}:${mysqlAttribute.port}/${mysqlAttribute.database}`
+
+export { mysqlAttribute }

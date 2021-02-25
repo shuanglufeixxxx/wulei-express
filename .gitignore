@@ -4,6 +4,7 @@ dist
 temp
 public
 dockernotes.md
-.node_package_env
+.node_package_env_dev
+.node_package_env_prod
 .mysql_env
 .DS_Store
