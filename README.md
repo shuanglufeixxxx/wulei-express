@@ -1,8 +1,7 @@
 ## Wulei-express
 Wulei fansite's server developed by express.js.\
 It's secured by advanced JWT auth with refresh token & access token.\
-The frontend project for Wulei fansite is [here](https://github.com/shuanglufeixxxx/wulei-angular-xsrf)\
-This project is migrated and upgraded from my old github ([sparrowtree](https://github.com/sparrowtree/wulei-server))
+The frontend project for Wulei fansite is [here](https://github.com/shuanglufeixxxx/wulei-angular-xsrf)
 ## Docker deployment
 docker build --tag \<username\>/\<appname\>:\<tagname\> ./\
 docker run -p 1443:443 -d \<username\>/\<appname\>:<tagname\>
