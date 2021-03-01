@@ -194,14 +194,14 @@ apiv1.post(prefix + '/signOut', (req: any, res, next) => {
 })
 
 
-const hasCredential = (req: any, res: any, next: any) => {
+const hasToken = (req: any, res: any, next: any) => {
     (req.headers[ACCESS_TOKEN_HEADER_NAME] ||
         req.cookies[REFRESH_TOKEN_COOKIE_NAME]) &&
         next();
 };
 
 
-apiv1.get(prefix + '/retrieveAccountSignedIn', hasCredential, authHandler, (req: any, res) => {
+apiv1.get(prefix + '/retrieveAccountSignedIn', hasToken, authHandler, (req: any, res) => {
     res.json(req.user && {
         id: req.user.id,
         username: req.user.username
