@@ -69,7 +69,7 @@ apiv1.all(prefix + '/updateToken', (req: any, res) => {
 
             req.query.original_url ?
             res.redirect(decodeURIComponent(req.query.original_url)) :
-            res.sendStatus(200);
+            res.send();
         })
     })
 })
@@ -195,9 +195,12 @@ apiv1.post(prefix + '/signOut', (req: any, res, next) => {
 
 
 const hasToken = (req: any, res: any, next: any) => {
-    (req.headers[ACCESS_TOKEN_HEADER_NAME] ||
-        req.cookies[REFRESH_TOKEN_COOKIE_NAME]) &&
+    const atk = req.headers[ACCESS_TOKEN_HEADER_NAME];
+    const rtk = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
+    if ( atk || rtk )
         next();
+    else
+        res.send();
 };
 
 

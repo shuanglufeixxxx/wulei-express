@@ -1,0 +1,1 @@
+npm run clean && sh febuilddev.sh && npm ci --production=false && docker build -t wulei-express:$WE_TAG .

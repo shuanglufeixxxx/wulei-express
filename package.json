@@ -5,9 +5,9 @@
   "scripts": {
     "start": "export $(cat .node_package_env_prod | xargs) && node ./dist/app.js",
     "watch": "export $(cat .node_package_env_dev | xargs) && nodemon --exec 'ts-node' ./src/app.ts --pretty",
+    "clean": "rm -rf ./dist",
     "debug": "export DEBUG=winston*,wulei* DEBUG_COLORS=0 DEBUG_HIDE_DATE=1 && npm run watch",
-    "build": "npx tsc && cp -r public ./dist",
-    "deploy": "npm ci --production=false && docker build -t wulei-express:$WE_TAG .",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
