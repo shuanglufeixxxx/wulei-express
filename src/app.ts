@@ -80,7 +80,7 @@ app.use(regex, staticHandler)
 const port = process.env.WE_PORT;
 
 app.listen(port, () => {
-    console.log('app listen on port 3000')
+    console.log('app listen on port %s', port)
 });
 
 setUpApiv1();
