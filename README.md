@@ -14,5 +14,5 @@ $ mysql -u root -p\
 \> create database wulei character set utf8mb4 collate utf8mb4_general_ci;\
 \> grant all on wulei.* to 'username';
 ## Backup & restore database
-$ mysqldump -u root -p --databases wulei \> wulei-dump.sql --no-create-db\
+$ mysqldump --default-character-set=utf8mb4 -u root -p --databases wulei \> wulei-dump.sql --no-create-db\
 \> source /pathto/wulei-dump.sql;
