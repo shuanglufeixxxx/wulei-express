@@ -1,1 +1,1 @@
-mkdir -p ./dist/public && cd ../wulei-angular && npm run build && cp ./dist/** ../wulei-express/dist/public && cd ../wulei-express
+cd ../wulei-angular && npm run build && rm -rf ../wulei-express/public/** && cp -r ./dist/** ../wulei-express/public && cd ../wulei-express
