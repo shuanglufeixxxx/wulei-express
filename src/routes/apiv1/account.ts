@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
 import debugModule from 'debug';
-import { account, refreshToken } from '../../models/init-models'
+import { account, ip_logging, refreshToken } from '../../models/init-models'
 import { apiPrefix, apiv1 } from "./init-routes";
 import { sequelize } from "../../sequelize-init";
 import { QueryTypes } from 'sequelize';
 import { appName } from '../../app';
+import { Request } from 'express';
 
 
 const debug = debugModule(appName + ':/src/routes/apiv1/account.ts');
@@ -203,8 +204,19 @@ const hasToken = (req: any, res: any, next: any) => {
         res.send();
 };
 
+const logIp = (req: Request, res: any, next: any) => {
+    const ip = req.get('X-Forwarded-For')?.match(/^[^,]+/)?.[0];
 
-apiv1.get(prefix + '/retrieveAccountSignedIn', hasToken, authHandler, (req: any, res) => {
+    ip_logging.create({
+        ip: ip || 'anonymous',
+        visit_date: new Date().toISOString()
+    })
+
+    next();
+}
+
+
+apiv1.get(prefix + '/retrieveAccountSignedIn', logIp, hasToken, authHandler, (req: any, res) => {
     res.json(req.user && {
         id: req.user.id,
         username: req.user.username

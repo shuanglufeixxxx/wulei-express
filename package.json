@@ -8,6 +8,7 @@
     "clean": "rm -rf ./dist",
     "debug": "export DEBUG=winston*,wulei* DEBUG_COLORS=0 DEBUG_HIDE_DATE=1 && npm run watch",
     "build": "npx tsc",
+    "proxy": "node ./proxydev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

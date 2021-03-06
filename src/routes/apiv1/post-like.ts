@@ -13,7 +13,7 @@ apiv1.post(prefix, authHandler, (req: any, res, next) => {
         .upsert({
             post_id: req.body.postId,
             account_id: req.user.id,
-            create_date: new Date().toString()
+            create_date: new Date().toISOString()
         })
         .then(_ => {
             res.send();

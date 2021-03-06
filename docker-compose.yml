@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   wulei-express:
-    image: 'wulei-express:v1.0.37-beta'
+    image: 'wulei-express:v1.0.41-beta'
     command: sh -c "npm start"
     ports:
       - 1443:443
