@@ -4,6 +4,7 @@ export interface ip_loggingAttributes {
   id: number;
   visit_date?: string;
   ip: string;
+  path?: string;
 }
 
 export type ip_loggingPk = "id";
@@ -14,6 +15,7 @@ export class ip_logging extends Model<ip_loggingAttributes, ip_loggingCreationAt
   id!: number;
   visit_date?: string;
   ip!: string;
+  path?: string;
 
 
   static initModel(sequelize: Sequelize.Sequelize): typeof ip_logging {
@@ -31,6 +33,10 @@ export class ip_logging extends Model<ip_loggingAttributes, ip_loggingCreationAt
     ip: {
       type: DataTypes.STRING(255),
       allowNull: false
+    },
+    path: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   }, {
     sequelize,

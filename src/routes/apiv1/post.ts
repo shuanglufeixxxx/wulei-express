@@ -1,4 +1,4 @@
-import { apiv1 } from "./init-routes";
+import { apiv1 } from "./init-apiv1";
 import { post } from "../../models/init-models";
 
 const prefix = "/post";

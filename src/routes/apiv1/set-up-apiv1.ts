@@ -6,7 +6,6 @@ import picture from './picture';
 import postLike from './post-like';
 import post from './post';
 
-
 account();
 featuredPicture();
 featuredPost();
@@ -15,6 +14,4 @@ picture();
 postLike();
 post();
 
-
-const run = () => {}
-export default run
+export { apiv1, apiPrefix as apiV1Prefix } from './init-apiv1'

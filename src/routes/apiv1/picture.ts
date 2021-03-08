@@ -1,4 +1,4 @@
-import { apiv1 } from "./init-routes";
+import { apiv1 } from "./init-apiv1";
 import { picture_item } from "../../models/picture_item";
 
 const prefix = '/picture';
