@@ -50,41 +50,41 @@ pathRouterArray.map(pr => {
 
 const apiPathRegexStr = `
 (
-    ${pathRouterArray.reduce((acc, v) => `${acc}|${v.path}`, "").slice(1)}
+    ${pathRouterArray.reduce((acc, v) => `${acc}|(\\${v.path})`, "").slice(1)}
 )
 `;
 
 const nonApiPathRegexStr = `
 (
     (
-        \/(?!${apiPathRegexStr})
+        \\/(?!${apiPathRegexStr})
     )
-    [\w-]+
+    [\\w-]+
 )
 `;
 
 const ordinaryPathRegexStr = `
 (
-    \/[\w-]+
+    \\/[\\w-]+
 )
 `;
 
 const bracketPathRegexStr = `
 (
-    \(
+    \\(
     .*
-    \)
+    \\)
 )
 `;
 
-const pathRegexStr = String.raw`
+const pathRegexStr = `
 ^
     (
         ${nonApiPathRegexStr}
         ${ordinaryPathRegexStr}*
         ${bracketPathRegexStr}?
     )?
-    \/?
+    \\/?
 $`;
 
 const pathRegex = new RegExp(pathRegexStr.replace(/\s+/g, ""));
