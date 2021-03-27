@@ -6,6 +6,7 @@ import { sequelize } from "../../sequelize-init";
 import { QueryTypes } from 'sequelize';
 import { appName } from '../../app';
 import { logIp } from '../handler/logIp';
+import { initLogPathHandler } from '../handler/logPath';
 
 
 const debug = debugModule(appName + ':/src/routes/apiv1/account.ts');
@@ -204,8 +205,9 @@ const hasToken = (req: any, res: any, next: any) => {
         res.send();
 };
 
+const p = prefix + '/retrieveAccountSignedIn';
 
-apiv1.get(prefix + '/retrieveAccountSignedIn', logIp, hasToken, authHandler, (req: any, res) => {
+apiv1.get(p, logIp, initLogPathHandler(p), hasToken, authHandler, (req: any, res) => {
     res.json(req.user && {
         id: req.user.id,
         username: req.user.username

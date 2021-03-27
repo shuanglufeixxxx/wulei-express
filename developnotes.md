@@ -11,3 +11,5 @@ $ npm install @types/jsonwebtoken @types/dotenv --save-dev\
 $ node\
 \> require('crypto').randomBytes(64).toString('hex')\
 paste to .env like 'ACCESS_TOKEN_SECRET=...'
+
+redis-server

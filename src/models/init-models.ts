@@ -21,6 +21,8 @@ import { refreshToken } from "./refreshToken";
 import type { refreshTokenAttributes, refreshTokenCreationAttributes } from "./refreshToken";
 import { ip_logging } from "./ip_logging";
 import type { ip_loggingAttributes, ip_loggingCreationAttributes } from "./ip_logging";
+import { path_logging } from "./path_logging";
+import type { path_loggingAttributes, path_loggingCreationAttributes } from "./path_logging";
 
 export {
   account,
@@ -34,6 +36,7 @@ export {
   token,
   refreshToken,
   ip_logging,
+  path_logging,
 };
 
 export type {
@@ -59,6 +62,8 @@ export type {
   refreshTokenCreationAttributes,
   ip_loggingAttributes,
   ip_loggingCreationAttributes,
+  path_loggingAttributes,
+  path_loggingCreationAttributes,
 };
 
 export function initModels(sequelize: Sequelize) {
@@ -73,6 +78,7 @@ export function initModels(sequelize: Sequelize) {
   token.initModel(sequelize);
   refreshToken.initModel(sequelize);
   ip_logging.initModel(sequelize);
+  path_logging.initModel(sequelize);
 
   return {
     account: account,
@@ -86,5 +92,6 @@ export function initModels(sequelize: Sequelize) {
     token: token,
     refreshToken: refreshToken,
     ip_logging: ip_logging,
+    path_logging: path_logging,
   };
 }

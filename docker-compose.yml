@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   wulei-express:
-    image: 'wulei-express:v1.0.43-beta'
+    image: 'wulei-express:v1.0.44-beta'
     command: sh -c "npm start"
     ports:
       - 1443:443
@@ -13,5 +13,7 @@ services:
     image: mysql:5.7
     volumes:
       - wulei-express-data:/var/lib/mysql
+  redis:
+    image: redis:6.2
 volumes:
   wulei-express-data:
