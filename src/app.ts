@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 
 dotenv.config();
-console.log("wulei-express: env: %o", process.env);
 
 export const appName = "wulei";
 
@@ -20,16 +19,18 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.use(
-    expressWinston.logger({
-        transports: [new winston.transports.Console()],
-        format: winston.format.combine(
-            winston.format.colorize(),
-            winston.format.json(),
-            winston.format.prettyPrint()
-        ),
-    })
-);
+if (process.env.WE_WINSTON_LOG) {
+    app.use(
+        expressWinston.logger({
+            transports: [new winston.transports.Console()],
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.json(),
+                winston.format.prettyPrint()
+            ),
+        })
+    );
+}
 
 app.use(
     expressWinston.errorLogger({

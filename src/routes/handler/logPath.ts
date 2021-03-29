@@ -49,7 +49,6 @@ export const initLogPathHandler = (path: string) => {
 
     // create a path logging request handler with path
     const logPath = (req: Request, res: any, next: any) => {
-        const key = `path_logging.count:${path}`;
         
         client.incr(key);
 
