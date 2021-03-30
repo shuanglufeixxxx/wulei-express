@@ -21,7 +21,7 @@ export const logIp = (req: Request, res: any, next: any) => {
                 visit_date: new Date().toISOString(),
                 path: req.originalUrl,
                 referrer: req.get("referrer"),
-                country: (geo as any).country,
+                country: (geo as any)['country_name'],
                 region: (geo as any).region,
                 city: (geo as any).city,
             });
