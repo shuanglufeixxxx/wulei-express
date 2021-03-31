@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { client } from "../../redis-init";
-import { of, timer } from "rxjs";
-import { concatMap, switchMap } from "rxjs/operators";
+import { timer } from "rxjs";
+import { switchMap } from "rxjs/operators";
 import { path_logging } from "../../models/path_logging";
 
 export const initLogPathHandler = (path: string) => {
@@ -13,30 +13,20 @@ export const initLogPathHandler = (path: string) => {
         date.setUTCHours(0);
         date.setUTCMinutes(0);
         date.setUTCSeconds(0);
-        return date;
+        return new Date().getTime() - date.getTime();
     };
 
-    const timeInterval = () =>
-        new Date().getTime() - nextMidnightTime().getTime();
+    const oneDay = 24 * 60 * 60 * 1000;
 
     // set expiration time for path_logging.count
-    of(null)
-        .pipe(
-            concatMap((v) => {
-                return timer(nextMidnightTime());
-            })
-        )
+    timer(nextMidnightTime() + 10)
         .subscribe((v) => {
-            if (v === null) {
-                client.pexpireat(key, timeInterval() - 5);
-            } else {
-                client.pexpire(key, 24 * 60 * 60 * 1000);
-            }
+            client.pexpire(key, oneDay);
         });
 
     // schedule save logs from redis to mysql
-    timer(timeInterval() - 10, 24 * 60 * 60 * 1000)
-        .pipe(switchMap((v) => client.getAsync(path)))
+    timer(nextMidnightTime() + oneDay - 10, oneDay)
+        .pipe(switchMap((v) => client.getAsync(key)))
         .subscribe((v) => {
             path_logging
                 .create({
