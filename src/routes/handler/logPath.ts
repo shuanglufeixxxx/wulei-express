@@ -7,16 +7,13 @@ import { path_logging } from "../../models/path_logging";
 export const initLogPathHandler = (path: string) => {
     const key = `path_logging.count:${path}`;
 
+    const oneDay = 24 * 60 * 60 * 1000;
+
     const nextMidnightTime = () => {
         const date = new Date();
-        date.setUTCDate(date.getUTCDate() + 1);
-        date.setUTCHours(0);
-        date.setUTCMinutes(0);
-        date.setUTCSeconds(0);
-        return new Date().getTime() - date.getTime();
+        date.setUTCHours(0, 0, 0, 0);
+        return date.getTime() + oneDay - new Date().getTime()
     };
-
-    const oneDay = 24 * 60 * 60 * 1000;
 
     // set expiration time for path_logging.count
     timer(nextMidnightTime() + 10)
@@ -25,7 +22,7 @@ export const initLogPathHandler = (path: string) => {
         });
 
     // schedule save logs from redis to mysql
-    timer(nextMidnightTime() + oneDay - 10, oneDay)
+    timer(nextMidnightTime() + oneDay, oneDay)
         .pipe(switchMap((v) => client.getAsync(key)))
         .subscribe((v) => {
             path_logging
