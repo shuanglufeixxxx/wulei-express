@@ -11,12 +11,14 @@ export const initLogPathHandler = (path: string) => {
 
     const nextMidnightTime = () => {
         const date = new Date();
+        const nowTime = date.getTime();
         date.setUTCHours(0, 0, 0, 0);
-        return date.getTime() + oneDay - new Date().getTime()
+        const nextTime = date.getTime() + oneDay;
+        return nextTime - nowTime
     };
 
     // set expiration time for path_logging.count
-    timer(nextMidnightTime() + 10)
+    timer(nextMidnightTime() + 1000)
         .subscribe((v) => {
             client.pexpire(key, oneDay);
         });
