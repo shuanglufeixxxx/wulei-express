@@ -98,6 +98,3 @@ apiv1.get(prefix + "/my", authHandler, (req: any, res, next) => {
         .catch(next);
 });
 
-
-const run = () => {}
-export default run

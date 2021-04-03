@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import debugModule from 'debug';
 import { account, refreshToken } from '../../models/init-models'
-import { apiPrefix, apiv1 } from "./init-apiv1";
+import { apiv1Prefix, apiv1 } from "./init-apiv1";
 import { sequelize } from "../../sequelize-init";
 import { QueryTypes } from 'sequelize';
 import { appName } from '../../app';
@@ -20,7 +20,7 @@ const REFRESH_TOKEN_COOKIE_NAME = 'refresh-token';
 export const authHandler = (req: any, res: any, next: any) => {
 
     const redirect = () => {
-        res.redirect(`${apiPrefix + prefix}/updateToken?&original_url=${encodeURIComponent(req.url)}`);
+        res.redirect(`${apiv1Prefix + prefix}/updateToken?&original_url=${encodeURIComponent(req.url)}`);
     }
 
     const token = req.headers[ACCESS_TOKEN_HEADER_NAME]
@@ -236,6 +236,3 @@ apiv1.get(prefix + '/exist', (req, res, next) => {
         .catch(next)
 })
 
-
-const run = () => {}
-export default run

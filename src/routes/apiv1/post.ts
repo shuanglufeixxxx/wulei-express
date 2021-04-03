@@ -24,5 +24,3 @@ apiv1.get(prefix + "/:id", (req, res, next) => {
         .catch(next);
 });
 
-const run = () => {};
-export default run;

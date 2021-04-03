@@ -1,12 +1,12 @@
-import { apiv1, apiV1Prefix } from "./apiv1/set-up-apiv1";
+import { apiv1, apiv1Prefix } from "./apiv1";
 import {
     authorProfile,
     authorProfilePrefix,
-} from "./author-profile/author-profile";
+} from "./author-profile";
 
 export const pathRouterArray = [
     {
-        path: apiV1Prefix,
+        path: apiv1Prefix,
         router: apiv1,
     },
     {

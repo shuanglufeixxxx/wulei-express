@@ -9,7 +9,7 @@ import bodyParser from "body-parser";
 import winston from "winston";
 import expressWinston from "express-winston";
 import cors from "cors";
-import { pathRouterArray } from "./routes/set-up-routes";
+import { pathRouterArray } from "./routes";
 import cookieParser from "cookie-parser";
 
 const app = express();

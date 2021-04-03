@@ -20,6 +20,3 @@ apiv1.get(prefix, (req, res, next) => {
         .catch(next);
 });
 
-
-const run = () => {}
-export default run
