@@ -5,8 +5,8 @@ import { apiv1Prefix, apiv1 } from "./init-apiv1";
 import { sequelize } from "../../services/sequelize";
 import { QueryTypes } from 'sequelize';
 import { appName } from '../../configs/app';
-import { logIp } from '../handler/logIp';
-import { initLogPathHandler } from '../handler/logPath';
+import { logIp } from '../handlers/logIp';
+import { initLogPathHandler } from '../handlers/logPath';
 
 
 const debug = debugModule(appName + ':/src/routes/apiv1/account.ts');

@@ -1,5 +1,5 @@
-import { logIp } from "../handler/logIp";
-import { initLogPathHandler } from "../handler/logPath";
+import { logIp } from "../handlers/logIp";
+import { initLogPathHandler } from "../handlers/logPath";
 import { authorProfile } from "./init-author-profile";
 
 const apiPrefix = "/borischen_profile";
