@@ -1,4 +1,4 @@
-import { apiv1, apiv1Prefix } from "./apiv1";
+import { apiv1, apiv1Prefix } from "./api-v1";
 import {
     authorProfile,
     authorProfilePrefix,
