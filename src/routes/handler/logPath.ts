@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { client } from "../../redis-init";
+import { client } from "../../services/redis";
 import { timer } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { path_logging } from "../../models/path_logging";

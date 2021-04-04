@@ -1,5 +1,5 @@
 import { apiv1 } from "./init-apiv1";
-import { post } from "../../models/init-models";
+import { post } from "../../models";
 
 const prefix = "/post";
 

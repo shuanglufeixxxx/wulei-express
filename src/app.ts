@@ -2,8 +2,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const appName = "wulei";
-
 import express from "express";
 import bodyParser from "body-parser";
 import winston from "winston";

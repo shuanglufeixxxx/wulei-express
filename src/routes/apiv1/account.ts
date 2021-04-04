@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import debugModule from 'debug';
-import { account, refreshToken } from '../../models/init-models'
+import { account, refreshToken } from '../../models'
 import { apiv1Prefix, apiv1 } from "./init-apiv1";
-import { sequelize } from "../../sequelize-init";
+import { sequelize } from "../../services/sequelize";
 import { QueryTypes } from 'sequelize';
-import { appName } from '../../app';
+import { appName } from '../../configs/app';
 import { logIp } from '../handler/logIp';
 import { initLogPathHandler } from '../handler/logPath';
 
@@ -178,7 +178,7 @@ apiv1.post(prefix + '/signUp', (req: any, res, next) => {
 
 apiv1.post(prefix + '/signOut', (req: any, res, next) => {
     const rt = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
-    debug(":145 signOut req.cookies=%o", req.cookies);
+    debug(":145 /signOut req.cookies=%o", req.cookies);
     refreshToken
         .destroy({
             where: {
