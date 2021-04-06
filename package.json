@@ -1,6 +1,6 @@
 {
   "name": "wulei-express",
-  "version": "1.2.3-beta",
+  "version": "1.2.4-beta",
   "description": "",
   "scripts": {
     "start": "export $(cat .node_package_env_prod | xargs) && node ./dist/index.js",
