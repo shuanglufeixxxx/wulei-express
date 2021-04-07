@@ -2,6 +2,8 @@ version: "3.8"
 
 services:
   wulei-express:
+    env_file:
+      - .node_package_env_prod
     image: 'wulei-express:v1.2.4-beta'
     command: sh -c "npm start"
     ports:

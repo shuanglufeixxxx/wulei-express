@@ -3,7 +3,7 @@
   "version": "1.2.4-beta",
   "description": "",
   "scripts": {
-    "start": "export $(cat .node_package_env_prod | xargs) && node ./dist/index.js",
+    "start": "node ./dist/index.js",
     "watch": "export $(cat .node_package_env_dev | xargs) && nodemon --exec 'ts-node' --project ./tsconfig.json ./src/index.ts --pretty",
     "clean": "rm -rf ./dist",
     "debug": "export WE_WINSTON_LOG= DEBUG=winston*,wulei* DEBUG_COLORS=0 DEBUG_HIDE_DATE=1 && npm run watch",
