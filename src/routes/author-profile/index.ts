@@ -8,7 +8,7 @@ const profileUrl = process.env.WE_BC_PROFILE || "";
 const coverLetterUrl = process.env.WE_BC_COVER_LETTER || "";
 
 authorProfile.get("", logIp, initLogPathHandler(apiPrefix), (req, res) => {
-    if (req.query.from === 'indeed.com') {
+    if (req.query.from === 'indeed.com' || req.query.from === 'linkedin.com') {
         res.redirect(coverLetterUrl);
     }
     res.redirect(profileUrl);
