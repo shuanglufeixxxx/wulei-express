@@ -17,16 +17,17 @@ export const initLogPathHandler = (path: string) => {
         return nextTime - nowTime
     };
 
-    // set expiration time for path_logging.count
+    // init value and expiration time for path_logging.count
     timer(nextMidnightTime() + 1000)
         .subscribe((v) => {
-            client.pexpire(key, oneDay);
+            client.set(key, '0');
         });
 
     // schedule save logs from redis to mysql
     timer(nextMidnightTime() + oneDay, oneDay)
         .pipe(switchMap((v) => client.getAsync(key)))
         .subscribe((v) => {
+            client.set(key, '0');
             path_logging
                 .create({
                     path,
