@@ -66,7 +66,7 @@ apiv1.all(prefix + '/updateToken', (req: any, res) => {
 
             if ( err || user == null ) return res.sendStatus(403);
 
-            const accessToken = generateAccessToken(account2user(user)) //
+            const accessToken = generateAccessToken(account2user(user))
             res.set(ACCESS_TOKEN_HEADER_NAME, accessToken)
 
             req.query.original_url ?
