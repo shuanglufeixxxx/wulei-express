@@ -4,7 +4,7 @@ services:
   wulei-express:
     env_file:
       - .node_package_env_prod
-    image: 'wulei-express:v1.2.4-beta'
+    image: 'wulei-express:v1.2.5-beta'
     command: sh -c "npm start"
     ports:
       - 1443:443
