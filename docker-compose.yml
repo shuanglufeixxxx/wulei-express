@@ -4,7 +4,7 @@ services:
   wulei-express:
     env_file:
       - .node_package_env_prod
-    image: 'wulei-express:v1.2.5-beta'
+    image: 'wulei-express:v1.3.0-beta'
     command: sh -c "npm start"
     ports:
       - 1443:443
@@ -16,6 +16,6 @@ services:
     volumes:
       - wulei-express-data:/var/lib/mysql
   redis:
-    image: redis:6.2
+    image: redis:6.2-alpine
 volumes:
   wulei-express-data:
